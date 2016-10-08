@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(viso2_ros)
 
-find_package(catkin REQUIRED COMPONENTS 
-  libviso2 
-  roscpp 
-  sensor_msgs 
-  nav_msgs 
-  message_filters 
-  image_transport 
-  cv_bridge 
-  image_geometry 
-  tf 
-  pcl_ros 
+find_package(catkin REQUIRED COMPONENTS
+  libviso2
+  roscpp
+  sensor_msgs
+  nav_msgs
+  message_filters
+  image_transport
+  cv_bridge
+  image_geometry
+  tf
+  pcl_ros
   std_srvs
   message_generation
 )
@@ -22,7 +22,7 @@ find_package(PCL REQUIRED)
 add_message_files( DIRECTORY msg FILES VisoInfo.msg)
 
 generate_messages(
-  DEPENDENCIES 
+  DEPENDENCIES
     std_msgs
 )
 
@@ -49,4 +49,11 @@ target_link_libraries(stereo_odometer ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 target_link_libraries(mono_odometer ${OpenCV_LIBRARIES} ${catkin_LIBRARIES})
 
 
+install(TARGETS mono_odometer stereo_odometer
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
